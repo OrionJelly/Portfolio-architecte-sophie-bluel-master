@@ -95,9 +95,15 @@ nav li {
 	font-size: 1.2em;
 }
 
-li:hover {
-	color: #B1663C;
+li a:hover {
+	font-weight: 700;
 }
+
+.no-decoration {
+	text-decoration: none;
+	color: black;
+}
+
 #introduction {
 	display: flex;
 	align-items: center;
@@ -209,6 +215,46 @@ input[type="submit"]{
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
+	align-items: flex-end;
 	margin: 2em
 }
+/* Ajouts des propriétés css pour la page Auth.html */
 
+#login {
+	width: 50%;
+	margin-top: 20%;
+	margin-inline: auto;
+	margin-bottom: 45% ;
+}
+
+#login>* {
+	text-align: center;
+
+}
+
+#login h2 {
+	margin-bottom: 20px;
+}
+
+#login form {
+	text-align: left;
+	margin-top: 30px;
+	display: flex;
+	flex-direction: column;
+}
+
+#login input {
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+
+#login label {
+	margin: 2em 0 1em 0;
+}
+
+#login a {
+	color: black;
+	
+}

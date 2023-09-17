@@ -1,25 +1,36 @@
-// //import { addListenerFilter } from "./filtres.js";
+// Récupération depuis le localstorage
+let works = window.localStorage.getItem("works");
+let category = window.localStorage.getItem("category");
+let token = window.localStorage.getItem("token");
+// Récupération des données depuis le backend WORKS & CATEGORY
+if (works === null || category === null) {
+  const responseGetWork = await fetch("http://localhost:5678/api/works");
+  const responseGetCategory = await fetch(
+    "http://localhost:5678/api/categories"
+  );
+  works = await responseGetWork.json();
+  category = await responseGetCategory.json();
 
-// Récupération des données depuis le backend WORKS
-
-const responseGetWork = await fetch("http://localhost:5678/api/works");
-let works = await responseGetWork.json();
-
-// // Récupération des donnés depuis backend CATEGORY
-
-const responseGetCategory = await fetch("http://localhost:5678/api/categories");
-const category = await responseGetCategory.json();
+  const valueWorks = JSON.stringify(works);
+  const valueCategory = JSON.stringify(category);
+  //Stockage dans le localstorage
+  window.localStorage.setItem("works", valueWorks);
+  window.localStorage.setItem("category", valueCategory);
+} else {
+  works = JSON.parse(works);
+  category = JSON.parse(category);
+}
 
 // // Fonction qui ajoute les boutons des catégories
 
 function addButtonFilters() {
-  const navFiltersElement = document.querySelector(".navfilters");
+  const navFiltersEl = document.querySelector(".navfilters");
 
   const elementButtonAll = document.createElement("button");
   elementButtonAll.textContent = "Tous";
   elementButtonAll.classList.add("btn-filters", "btn-filters__active");
   elementButtonAll.dataset.id = 0;
-  navFiltersElement.appendChild(elementButtonAll);
+  navFiltersEl.appendChild(elementButtonAll);
 
   for (let i = 0; i < category.length; i++) {
     const filtersButton = document.createElement("button");
@@ -28,7 +39,7 @@ function addButtonFilters() {
     filtersButton.textContent = category[i].name;
     filtersButton.dataset.id = category[i].id;
 
-    navFiltersElement.appendChild(filtersButton);
+    navFiltersEl.appendChild(filtersButton);
   }
 }
 
@@ -56,7 +67,7 @@ const filtersElements = document.querySelectorAll(".btn-filters");
 
 filtersElements.forEach((button) =>
   button.addEventListener("click", (e) => {
-    const IdButton = e.target.getAttribute("data-id");
+    const idButton = e.target.getAttribute("data-id");
 
     filtersElements.forEach((btn) =>
       btn.classList.remove("btn-filters__active")
@@ -65,12 +76,28 @@ filtersElements.forEach((button) =>
     e.target.classList.add("btn-filters__active");
 
     const filteredWork = works.filter(function (work) {
-      return IdButton == work.categoryId;
+      return idButton == work.categoryId;
     });
-    if (IdButton == 0) {
+    if (idButton == 0) {
       generateWork(works);
     } else {
       generateWork(filteredWork);
     }
   })
 );
+
+// Test pour la version Admin
+
+function menuAdmin() {
+  const headerEl = document.getElementsByTagName("header");
+  const navAdminEl = document.createElement("div");
+
+  navAdminEl.textContent = "Test";
+  headerEl[0].appendChild(navAdminEl);
+}
+
+if (token === null) {
+  console.log("Il y a pas de token");
+} else {
+  menuAdmin();
+}
