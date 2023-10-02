@@ -48,17 +48,21 @@ table {
 }
 /** end reset css**/
 body {
-	max-width: 1140px;
+	max-width: 1440px;
 	margin:auto;
+	display: flex;
+	flex-direction: column;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
+	background-color: #FFFEF8;
 }
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	margin-top: 100px;
 }
 section {
+	max-width: 1140px;
 	margin: 50px 0
 }
 
@@ -68,7 +72,8 @@ h1{
 	font-family: 'Syne';
 	font-size: 22px;
 	font-weight: 800;
-	color: #B1663C
+	color: #B1663C;
+	margin-left: 60px;
 }
 
 h1 > span {
@@ -88,6 +93,7 @@ nav ul {
 	display: flex;
 	align-items: center;
 	list-style-type: none;
+	margin-right: 50px;
 
 }
 nav li {
@@ -99,6 +105,12 @@ li a:hover {
 	font-weight: 700;
 }
 
+main {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
 .no-decoration {
 	text-decoration: none;
 	color: black;
@@ -106,6 +118,7 @@ li a:hover {
 
 #introduction {
 	display: flex;
+	justify-content: space-between;
 	align-items: center;
 }
 #introduction figure {
@@ -113,7 +126,7 @@ li a:hover {
 }
 #introduction img {
 	display: block;
-	margin: auto;
+	margin-left: 0;
 	width: 80%;
 }
 
@@ -128,7 +141,6 @@ li a:hover {
 	margin-bottom: 0.5em;
 }
 #portfolio h2 {
-	text-align: center;
 	margin-bottom: 1em;
 }
 
@@ -140,7 +152,7 @@ li a:hover {
 
 .btn-filters {
 	color: #1D6154;
-	background: none;
+	background: #FFFEF8;
 	border: 1px solid #1D6154;
 	border-radius: 60px;
 	padding: 10px 15px;
@@ -184,6 +196,7 @@ li a:hover {
 	text-align: left;
 	margin-top:30px;
 	display: flex;
+	padding-inline: 15%;
 	flex-direction: column;
 }
 
@@ -204,10 +217,9 @@ li a:hover {
 input[type="submit"]{
 	font-family: 'Syne';
 	font-weight: 700;
-	color: white;
+	color: #FFFEF8;
 	background-color: #1D6154;
-	margin : 2em auto ;
-	width: 180px;
+	margin : 2em 25% ;
 	text-align: center;
 	border-radius: 60px ;
 }
@@ -218,10 +230,10 @@ footer nav ul {
 	align-items: flex-end;
 	margin: 2em
 }
-/* Ajouts des propriétés css pour la page Auth.html */
+/* Ajouts des propriétés css pour la page login.html */
 
 #login {
-	width: 50%;
+	width: 35%;
 	margin-top: 20%;
 	margin-inline: auto;
 	margin-bottom: 45% ;
@@ -257,4 +269,265 @@ footer nav ul {
 #login a {
 	color: black;
 	
+}
+
+.btn-connexion {
+	padding-inline: 10%;
+}
+
+/*Ajouts des propriétés CSS en mode administrateur*/
+
+.edit-mod__container{
+	display: none;
+	width: 100%;
+	height: 59px;
+	margin-bottom: 50px;
+	position: fixed;
+	left: 0;
+	background-color: #000000;
+	display: none;
+	justify-content: center;
+	align-items: center;
+	font-weight: 400;
+	color: #FFF;
+	font-size: 16px;
+}
+
+/* Switch bouton login vers logout */
+
+.login {
+	display: contents;
+}
+
+.logout {
+	display: none;
+}
+
+/* Gestion de l'apparition des boutons */
+
+.open-modal-btn {
+	display: none;
+	background: none;
+	border: none;
+	cursor: pointer;
+}
+
+.open-modal-btn.position {
+	color: #FFF;
+	
+}
+
+.portfolio-title__container {
+	position: relative;
+	text-align: center;
+
+}
+
+.portfolio-title__container .open-modal-btn {
+	margin-left: 20px;
+	position: absolute;
+	left: 58%;
+	cursor: pointer;
+	top: 20%;
+	
+}
+
+/* Gestion de la modal */
+
+#modal {
+	box-sizing: border-box;
+	border: none;
+	border-radius: 10px;
+	width: clamp(200px, 630px, 700px);
+	height: clamp(150px, 688px, 750px);
+	padding: 0;
+	
+	
+}
+
+.modal-container {
+	height: 100%;
+	overflow: hidden;
+	padding: 0 60px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background: #FFFEF8;
+}
+
+.modal-container h2 {
+	display: flex;
+	color: #000000;
+	font-family: 'Work sans';
+	font-weight: 400;
+	margin: 40px;
+	justify-content: center;
+}
+
+.close-modal-btn {
+	position: absolute;
+	background: none;
+	border: none;
+	color: #000000;
+	font-size: 12px;
+	top: 5%;
+	right: 5%;
+	cursor: pointer;
+} 
+
+
+.gallery-modal {
+	display: flex;
+	margin-inline: 20px;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+.gallery-modal figure {
+	display: flex;
+	position: relative;
+	margin-bottom: 10px;
+	
+}
+
+.gallery-modal img {
+	object-fit: fill;
+	width: 82px;
+}
+
+.gallery-modal i {
+	width: 17px;
+	height: 17px;
+	font-size: 10px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 2px;
+	padding: 1px 1px;
+	position: absolute;
+	background: #000000;
+	color: #FFF;
+	top: 5%;
+	right: 5%;
+	cursor: pointer;
+}
+
+.decorate-line {
+	border-top: 1px solid #B3B3B3;
+	margin: 40px 0 40px 0;
+	width: 100%;
+}
+
+.btn-add-pictures {
+		color: #FFF;
+		background: #1D6154;
+		border: none;
+		border-radius: 60px;
+		padding: 10px 15px;
+		font-family: 'Syne';
+		font-weight: 700;
+		font-size: 16px;
+		padding-inline: 10%;
+		cursor: pointer;
+}
+
+/* Page Ajout photo */
+
+.return-modal-btn {
+	background: none;
+	border: none;
+	position: absolute;
+	font-size: 21px;
+	top: 5%;
+	left: 5%;
+	cursor: pointer;
+}
+
+
+#form-add-pictures {
+	display: flex;
+	flex-direction: column;
+	max-width: 420px;
+	justify-content: center;
+	box-sizing: border-box;
+		
+}
+
+
+.add-pictures__label {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 420px;
+	height: 169px;
+	cursor: pointer;
+	border-radius: 3px;
+	background-color: #E8F1F6;
+	gap: 10px;
+	margin-bottom: 20px;
+}
+
+.fa-image{
+	color:#B9C5CC;
+}
+
+.add-pictures__placeholder {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 173px;
+	height: 36px;
+	border-radius: 50px;
+	color: #306685;
+	background-color: #B9C5CC;
+	font-family: 'Work Sans';
+	font-weight: 500;
+}
+
+.add-pictures__placeholder-info {
+	font-size: 10px;
+}
+
+.preview {
+	position: absolute;
+	width: 129px;
+	height: 169px;
+	
+}
+
+input[type=file] {
+	display: none;
+}
+
+#label-title, #label-category {
+	font-size: 14px;
+	font-weight: 500;
+	font-family: 'Work Sans';
+	margin-bottom: 10px;
+
+}
+
+option[selected] {
+	display: none;
+}
+
+
+#title, #select-category {
+	height: 50px;
+	color: #444444;
+	padding-inline: 2%;
+	border: none;
+	background-color: #FFF;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	font-size: 14px;
+	font-weight: 500;
+	font-family: 'Work Sans';
+	margin-bottom: 15px;
+}
+
+#modal input.btn-validation {
+	width: 273px;
+	margin: 0 auto;
 }
