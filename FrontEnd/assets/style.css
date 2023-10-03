@@ -72,7 +72,7 @@ h1{
 	font-family: 'Syne';
 	font-size: 22px;
 	font-weight: 800;
-	color: #B1663C;
+	color: rgb(177, 102, 60);
 	margin-left: 60px;
 }
 
@@ -257,9 +257,10 @@ footer nav ul {
 
 #login input {
 	height: 50px;
-	font-size: 1.2em;
 	border: none;
+	font-size: 1.2em;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	
 }
 
 #login label {
@@ -271,8 +272,31 @@ footer nav ul {
 	
 }
 
+#login .regex-valid {
+	border: 2px solid #1D6154;
+	box-sizing: border-box;
+
+}
+
 .btn-connexion {
-	padding-inline: 10%;
+	margin: 40px auto;
+	width: 60%;
+	color: #FFFEF8;
+	background: rgb(29, 97, 84);
+	border: none;
+	border-radius: 60px;
+	font-family: 'Syne';
+	font-weight: 700;
+	font-size: 16px;
+	padding: 15px 5px;
+	cursor: pointer;
+}
+
+.btn-connexion__hidden {
+	background: rgb(29,
+		97,
+		84, 0.1);
+		
 }
 
 /*Ajouts des propriétés CSS en mode administrateur*/
@@ -296,7 +320,7 @@ footer nav ul {
 /* Switch bouton login vers logout */
 
 .login {
-	display: contents;
+	display: flex;
 }
 
 .logout {
@@ -328,7 +352,7 @@ footer nav ul {
 	position: absolute;
 	left: 58%;
 	cursor: pointer;
-	top: 20%;
+	top: 20%;padding-inline: 10%;
 	
 }
 
@@ -416,6 +440,20 @@ footer nav ul {
 	border-top: 1px solid #B3B3B3;
 	margin: 40px 0 40px 0;
 	width: 100%;
+}
+
+.btn-form-incomplete {
+	color: #FFF;
+	background: #1D6154;
+	border: none;
+	border-radius: 60px;
+	padding: 10px 15px;
+	font-family: 'Syne';
+	font-weight: 700;
+	font-size: 16px;
+	padding-inline: 10%;
+	cursor: pointer;
+	opacity: 0.1
 }
 
 .btn-add-pictures {

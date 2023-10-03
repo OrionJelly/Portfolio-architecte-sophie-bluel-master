@@ -19,21 +19,6 @@ formEl.addEventListener("submit", (e) => {
   e.preventDefault();
 });
 
-/****Initialisation de la phase de connection ****/
-
-formEl.addEventListener("input", () => {
-  verifyEmail();
-  verifyPassword();
-  if (verifyEmail() === true && verifyPassword() === true) {
-    submitButton.classList.remove("btn-connexion__hidden");
-    formEl.addEventListener("submit", submitHandler);
-  } else {
-    error.innerText = "Veuillez renseigner les champs correctement";
-  }
-});
-
-/**** Fin de la phase de connection ****/
-
 /**** Fonction qui permet envoi du formulaire et récupération de la réponse serveur ****/
 
 async function submitHandler(e) {
@@ -72,7 +57,6 @@ function verifyEmail() {
     emailInput.classList.add("regex-valid");
     return true;
   } else {
-    console.log("pas bon");
     return false;
   }
 }
@@ -83,7 +67,22 @@ function verifyPassword() {
     passwordInput.classList.add("regex-valid");
     return true;
   } else {
-    console.log("pas ok");
     return false;
   }
 }
+
+/****Initialisation de la phase de connection ****/
+
+formEl.addEventListener("input", () => {
+  verifyEmail();
+  verifyPassword();
+  if (verifyEmail() === true && verifyPassword() === true) {
+    submitButton.classList.remove("btn-connexion__hidden");
+    error.innerText = "";
+    formEl.addEventListener("submit", submitHandler);
+  } else {
+    error.innerText = "Veuillez renseigner les champs correctement";
+  }
+});
+
+/**** Fin de la phase de connection ****/
