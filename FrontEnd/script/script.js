@@ -1,30 +1,58 @@
+/*********************************************************************************
+**********************************************************************************
+***********************    PROCEDURE GLOBALE    **********************************
+==> Déclaration des variables version authentifié 
+==> Déclaration des variables version visiteur
+
+==> Récupération des données depuis le backend => Works & Category
+
+==> Récupération de l'Id et du token bearer depuis le localstorage
+==> Vérification du type d'utilisateur et redirection
+
+==> Version Visiteur {voir section}
+
+==> Version utilisateur authentifié {voir section}
+********************************************************************************** 
+**********************************************************************************/
+
+/**** Déclaration des variables pour la version utilisateur authentifié ****/
+
 const editMod = document.querySelector(".edit-mod__container");
-const dialogEl = document.querySelector("#modal");
+
 const loginEl = document.querySelector(".login");
 const logoutEl = document.querySelector(".logout");
+
+const dialogEl = document.querySelector("#modal");
 const mainModalFramEl = document.querySelector(".modal-main");
 const addPicturesModalFramEl = document.querySelector(".modal-add-pictures");
 const addPicturesEl = document.querySelectorAll(".btn-add-pictures");
+
+const trashEl = document.querySelectorAll(".fa-trash-can");
+const trashIcon = document.querySelector(".fa-trash-can");
+
 const returnBtnEl = document.querySelector(".return-modal-btn");
 const openModalEl = document.querySelectorAll(".open-modal-btn");
 const closeModalEl = document.querySelectorAll(".close-modal-btn");
-const formAddPicture = document.querySelector("#form-add-pictures");
 
+const formAddPicture = document.querySelector("#form-add-pictures");
+const inputFile = document.querySelector("#file");
 const inputTitle = document.querySelector("#title");
 const inputCategory = document.getElementById("select-category");
 const addPictureLabel = document.querySelector(".add-pictures__label");
 const submitPictureBtn = document.querySelector(
   ".btn-add-pictures.btn-validation"
 );
+
 const imagePreview = document.createElement("img");
 const clearBG = document.querySelector(".add-pictures__placeholder");
 const userInfo = document.querySelector(".form-add-pictures-error");
 const regexNoBlank = /^\s*\S+.*/;
-// Récupération depuis le localstorage
-let token = localStorage.getItem("token");
-let userId = localStorage.getItem("userId");
 
-// Récupération des données depuis le backend WORKS & CATEGORY
+/**** Déclaration des viariales pour la version visiteur ****/
+const formContact = document.querySelector("#form-contact");
+
+/*** Récupération des données depuis le backend => Works & Category ****/
+
 let works;
 let category;
 const responseGetWork = await fetch("http://localhost:5678/api/works");
@@ -32,7 +60,25 @@ const responseGetCategory = await fetch("http://localhost:5678/api/categories");
 works = await responseGetWork.json();
 category = await responseGetCategory.json();
 
-// Fonction qui ajoute les boutons des catégories
+/**** Récupération de l'Id et du token bearer depuis le localstorage ****/
+
+let token = localStorage.getItem("token");
+let userId = localStorage.getItem("userId");
+
+/*** Vérification du type d'utilisateur ****/
+
+if (token === null || userId == false) {
+  console.log("Il n'y a pas de token");
+} else {
+  menuAdmin();
+}
+
+/**********************************************************************************
+ ******************************  VERSION VISITEUR  *********************************
+ **********************************************************************************/
+
+/**** Fonction qui ajoute les boutons des catégories à la section galerie ****/
+
 function addButtonFilters() {
   const navFiltersEl = document.querySelector(".navfilters");
 
@@ -53,7 +99,9 @@ function addButtonFilters() {
   }
   addFiltersToButtonFilters();
 }
-// Fonction génère gallery selon le tableau
+
+/**** Fonction géneration de la galerie ****/
+
 const elementDivGallery = document.querySelector(".gallery");
 function generateWork(array) {
   elementDivGallery.innerHTML = "";
@@ -69,7 +117,8 @@ function generateWork(array) {
   }
 }
 
-// Fonction qui tri les images selon leur catégorie
+/****  Fonction ajoute filtres selon la catégorie d'image souhaitée  ****/
+
 function addFiltersToButtonFilters() {
   const filtersElements = document.querySelectorAll(".btn-filters");
 
@@ -95,26 +144,37 @@ function addFiltersToButtonFilters() {
   );
 }
 
+/**** EventListener pour prévenir le comportement par defaut du bouton submit formulaire contact ****/
+
+formContact.addEventListener("submit", (e) => {
+  e.preventDefault();
+});
+
+/*** initialisation des fonctions ****/
 addButtonFilters();
 generateWork(works);
-// Test pour la version Admin
 
-// Basculement entre les modales
+/**********************************************************************************
+ ******************************  VERSION AUTHENTIFIÉ  ******************************
+ **********************************************************************************/
+
+/**** Fonction qui permet l'accès au mode édition ****/
 
 function menuAdmin() {
   // Gestion du bouton login
-  const inputFile = document.querySelector("#file");
   loginEl.style.display = "none";
   logoutEl.style.display = "flex";
-
+  //  Suppression du localstorage à la déconnection
   logoutEl.addEventListener("click", () => {
     localStorage.clear();
-    location.href = "./index.html";
+    location.href = "./login.html";
   });
 
   // Appariton du mode Edition
 
   editMod.style.display = "flex";
+
+  //Gestion de l'ouverture et de la fermeture de la modale
 
   openModalEl.forEach((item) => {
     item.style.display = "flex";
@@ -141,7 +201,8 @@ function menuAdmin() {
     })
   );
 
-  // Fermer la modale au click extérieure
+  // Fermeture de la modale au click extérieur
+
   document.addEventListener("click", function (event) {
     if (event.target == dialogEl) {
       formAddPicture.reset();
@@ -154,10 +215,14 @@ function menuAdmin() {
     }
   });
 
+  // Basculement vers la modale avec formulaire ajout de photo
+
   addPicturesEl[0].addEventListener("click", () => {
     mainModalFramEl.style.display = "none";
     addPicturesModalFramEl.style.display = "flex";
   });
+
+  // Bouton de retour qui permet de revenir à la modale précedente
 
   returnBtnEl.addEventListener("click", () => {
     mainModalFramEl.style.display = "flex";
@@ -171,17 +236,14 @@ function menuAdmin() {
     fileObject = "";
   });
 
+  // Iniation de la galerie de la modale
   generateWorkAdmin(works);
 }
 
-// Vérification de la présence du token et de l'id de l'utilisateur puis accès au mode administrateur si la vérification est validée
-if (token === null || userId == false) {
-  console.log("Il y a pas de token");
-} else {
-  menuAdmin();
-}
+/********* SECTION GALERIE MODALE ********/
 
-// Génération de la galerie pour la modale admin
+/**** Fonction qui permet la genération de la galerie de la modale ****/
+
 function generateWorkAdmin(array) {
   const elementDivGalleryModal = document.querySelector(".gallery-modal");
   elementDivGalleryModal.innerHTML = "";
@@ -197,9 +259,7 @@ function generateWorkAdmin(array) {
   }
 }
 
-//Fonction de suppression de projet
-const trashEl = document.querySelectorAll(".fa-trash-can");
-const trashIcon = document.querySelector(".fa-trash-can");
+/**** Fonction qui permet la suppression de photos ****/
 
 dialogEl.addEventListener("click", function deleteWork(e) {
   if (e.target.classList.contains("fa-trash-can")) {
@@ -210,6 +270,8 @@ dialogEl.addEventListener("click", function deleteWork(e) {
     }
   }
 });
+
+/**** Requête fetch DELETE suppression photo ****/
 
 async function submitDeleteWork(id) {
   try {
@@ -223,7 +285,9 @@ async function submitDeleteWork(id) {
       const pictureAdmin = document.querySelector(
         `.gallery-pictures[data-id="${id}"]`
       );
-      const picture = document.querySelector(`.picture[data-id="${id}"]`);
+      const picture = document.queraddButtonFilters();
+      generateWork(works);
+      ySelector(`.picture[data-id="${id}"]`);
       pictureAdmin.remove();
       picture.remove();
       alert("Projet supprimmé avec succès !!");
@@ -234,12 +298,13 @@ async function submitDeleteWork(id) {
   }
 }
 
-// Section formulaire ajout de photos
+/********* SECTION FORMULAIRE AJOUT DE PHOTOS ********/
 
-const inputFile = document.querySelector("#file");
 let file = 0;
 let fileObject;
-// Preview de la nouvelle photo
+
+// Preview de la photo à ajouter
+
 inputFile.addEventListener("change", () => {
   userInfo.innerText = "";
   let reader = new FileReader();
@@ -256,6 +321,8 @@ inputFile.addEventListener("change", () => {
   fileObject = inputFile.files[0];
 });
 
+// Lecture des actions de l'utilisateur
+
 formAddPicture.addEventListener("change", () => {
   if (validateForm()) {
     submitPictureBtn.classList.remove("btn-form-incomplete");
@@ -264,6 +331,8 @@ formAddPicture.addEventListener("change", () => {
     submitPictureBtn.classList.add("btn-form-incomplete");
   }
 });
+
+// Envoi du formulaire d'ajout de photo
 
 formAddPicture.addEventListener("submit", function (e) {
   e.preventDefault();
@@ -275,7 +344,35 @@ formAddPicture.addEventListener("submit", function (e) {
   }
 });
 
-// Fonction aui vérifie si l input file est vide
+// Requête fetch POST ajout de photo
+
+async function submitNewPicture() {
+  const formData = new FormData(formAddPicture);
+  console.log(formData);
+  try {
+    const response = await fetch("http://localhost:5678/api/works", {
+      method: "POST",
+      headers: {
+        Authorization: "Bearer " + token,
+        Accept: "application/json",
+      },
+      body: formData,
+    });
+    const data = await response.json();
+    if (response.ok) {
+      works.push(data);
+      generateWork(works);
+      generateWorkAdmin(works);
+      formAddPicture.reset();
+      imagePreview.remove();
+      clearBG.style.display = "flex";
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+// Fonction qui vérifie si l input file est vide
 
 function isFileEmpty() {
   if (fileObject !== undefined) {
@@ -283,13 +380,10 @@ function isFileEmpty() {
     return file;
   }
 }
-// // Fonction vérification remplissage formulaire d'envoi d'une nouvelle image
+// Fonction vérification des données formulaire d'ajout de photo
 
 function validateForm() {
   isFileEmpty();
-  console.log("validateform " + file);
-  console.log(fileObject);
-  console.log("log de la fonction " + isFileEmpty());
   userInfo.innerText = "";
   const supportedFormat = ["image/jpeg", "image/jpg", "image/png"];
   const limit = 4;
@@ -319,38 +413,3 @@ function validateForm() {
     return true;
   }
 }
-
-// Requete fetch
-async function submitNewPicture() {
-  const formData = new FormData(formAddPicture);
-  console.log(formData);
-  try {
-    const response = await fetch("http://localhost:5678/api/works", {
-      method: "POST",
-      headers: {
-        Authorization: "Bearer " + token,
-        Accept: "application/json",
-      },
-      body: formData,
-    });
-    const data = await response.json();
-    if (response.ok) {
-      works.push(data);
-      generateWork(works);
-      generateWorkAdmin(works);
-      formAddPicture.reset();
-      imagePreview.remove();
-      clearBG.style.display = "flex";
-    }
-  } catch (error) {
-    console.log(error);
-  }
-}
-
-//EventListener pour prévenir le comportement par defaut du bouton submit
-
-const formContact = document.querySelector("#form-contact");
-
-formContact.addEventListener("submit", (e) => {
-  e.preventDefault();
-});

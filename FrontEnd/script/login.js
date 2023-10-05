@@ -1,6 +1,7 @@
 /*********************************************************************************
 **********************************************************************************
 ***********************    PROCEDURE GLOBALE    **********************************
+==> Déclaration des constantes
 ==> Suppression comportement par defaut du bouton submit
 ==> Vérification de la validité des données du formulaire 
 ==> Envoi du formulaire de connection + Récupération de la réponse du serveur
@@ -8,6 +9,8 @@
 ==> Redirection vers la page d'accueil
 ********************************************************************************** 
 **********************************************************************************/
+
+/****  Déclaration des constantes  ****/
 const formEl = document.getElementById("formlogin");
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
