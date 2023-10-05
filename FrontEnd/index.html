@@ -3,19 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <title>Sophie Bluel - Architecte d'intérieur</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
       href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap"
       rel="stylesheet"
     />
-    <meta name="description" content="" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
-    />
-    <link rel="stylesheet" href="./assets/style.css" />
+    >
+    <link rel="stylesheet" href="./assets/style.css">
   </head>
   <body>
     <aside class="edit-mod__container">
@@ -26,8 +25,13 @@
         <div class="modal-container modal-main">
           <button class="close-modal-btn"><i class="fa-solid fa-x"></i></button>
           <h2 class="title-modal">Galerie photo</h2>
-          <div class="gallery-modal"></div>
+          <div class="gallery-modal">
+          </div>
+          <div class="container-decorate-line">
           <div class="decorate-line"></div>
+
+          </div>
+          
           <button type="button" class="btn-add-pictures">
             Ajouter une photo
           </button>
@@ -38,7 +42,7 @@
           </button>
           <button class="close-modal-btn"><i class="fa-solid fa-x"></i></button>
           <h2 class="title-modal">Ajout photo</h2>
-          <form id="form-add-pictures" method="post">
+          <form id="form-add-pictures" method="POST">
             <label for="file" class="add-pictures__label">
               <i class="fa-regular fa-image fa-4x"></i>
               <span class="add-pictures__placeholder">+ Ajouter photo</span>
@@ -46,7 +50,7 @@
                 >jpg, png : 4mo max</span
               >
             </label>
-            <input type="file" id="file" name="image" accept="image/*" />
+            <input type="file" id="file" name="image" accept="image/*">
             <label for="title" id="label-title">Titre</label>
             <input type="text" name="title" id="title" />
             <label for="select-category" id="label-category">Catégorie</label>
@@ -59,7 +63,11 @@
               <option value="3">Hotels & restaurants</option>
             </select>
             <span class="decorate-line"></span>
-            <button type="submit" class="btn-add-pictures btn-validation">
+            <span class="form-add-pictures-error"></span>
+            <button
+              type="submit"
+              class="btn-add-pictures btn-validation btn-form-incomplete"
+            >
               Valider
             </button>
           </form>
