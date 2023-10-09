@@ -1,7 +1,7 @@
 /*********************************************************************************
 **********************************************************************************
 ***********************    PROCEDURE GLOBALE    **********************************
-==> Déclaration des variables version authentifié 
+==> Déclaration des variables version authentifié
 ==> Déclaration des variables version visiteur
 
 ==> Récupération des données depuis le backend => Works & Category
@@ -12,7 +12,7 @@
 ==> Version Visiteur {voir section}
 
 ==> Version utilisateur authentifié {voir section}
-********************************************************************************** 
+**********************************************************************************
 **********************************************************************************/
 
 /**** Déclaration des variables pour la version utilisateur authentifié ****/
@@ -109,7 +109,7 @@ function generateWork(array) {
   for (let i = 0; i < array.length; i++) {
     elementDivGallery.innerHTML += `
          <figure data-id="${array[i].id}" class="picture">
-         <img src="${array[i].imageUrl}" 
+         <img src="${array[i].imageUrl}"
          alt="${array[i].title}">
          <figcaption>${array[i].title}</figcaption>
          </figure>
@@ -251,9 +251,9 @@ function generateWorkAdmin(array) {
   for (let i = 0; i < array.length; i++) {
     elementDivGalleryModal.innerHTML += `
          <figure data-id="${array[i].id}" class="gallery-pictures">
-         <img  src="${array[i].imageUrl}" 
+         <img  src="${array[i].imageUrl}"
          alt="${array[i].title}">
-         <i data-id="${array[i].id}" class="fa-solid fa-trash-can"></i>    
+         <i data-id="${array[i].id}" class="fa-solid fa-trash-can"></i>
          </figure>
          `;
   }
@@ -285,9 +285,7 @@ async function submitDeleteWork(id) {
       const pictureAdmin = document.querySelector(
         `.gallery-pictures[data-id="${id}"]`
       );
-      const picture = document.queraddButtonFilters();
-      generateWork(works);
-      ySelector(`.picture[data-id="${id}"]`);
+      const picture = document.querySelector(`.picture[data-id="${id}"]`);
       pictureAdmin.remove();
       picture.remove();
       alert("Projet supprimmé avec succès !!");
