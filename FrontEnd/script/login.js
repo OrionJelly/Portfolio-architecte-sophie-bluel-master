@@ -3,11 +3,11 @@
 ***********************    PROCEDURE GLOBALE    **********************************
 ==> Déclaration des constantes
 ==> Suppression comportement par defaut du bouton submit
-==> Vérification de la validité des données du formulaire 
+==> Vérification de la validité des données du formulaire
 ==> Envoi du formulaire de connection + Récupération de la réponse du serveur
 ==> Sauvegarde de l'userId et du token d'authentification  dans le localstorage
 ==> Redirection vers la page d'accueil
-********************************************************************************** 
+**********************************************************************************
 **********************************************************************************/
 
 /****  Déclaration des constantes  ****/
@@ -41,6 +41,9 @@ async function submitHandler(e) {
       localStorage.setItem("token", data.token);
       localStorage.setItem("userId", data.userId);
       location.href = "./index.html";
+    } else {
+      error.innerText = "";
+      error.innerText = "Erreur dans l’identifiant ou le mot de passe";
     }
   } catch (error) {
     console.log(error);
@@ -78,6 +81,7 @@ function verifyPassword() {
 /****Initialisation de la phase de connection ****/
 
 formEl.addEventListener("input", () => {
+  error.innerText = "";
   verifyEmail();
   verifyPassword();
   if (verifyEmail() === true && verifyPassword() === true) {
