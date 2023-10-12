@@ -165,7 +165,7 @@ main {
 .btn-filters__active {
 	background-color: #1D6154;
 	color: #FFFEF8;
-	
+
 }
 
 
@@ -260,7 +260,7 @@ footer nav ul {
 	border: none;
 	font-size: 1.2em;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
-	
+
 }
 
 #login label {
@@ -269,7 +269,7 @@ footer nav ul {
 
 #login a {
 	color: black;
-	
+
 }
 
 #login .regex-valid {
@@ -296,7 +296,7 @@ footer nav ul {
 	background: rgb(29,
 		97,
 		84, 0.1);
-		
+
 }
 
 /*Ajouts des propriétés CSS en mode administrateur*/
@@ -338,12 +338,13 @@ footer nav ul {
 
 .open-modal-btn.position {
 	color: #FFF;
-	
+
 }
 
 .portfolio-title__container {
 	position: relative;
 	text-align: center;
+	margin-bottom: 80px
 
 }
 
@@ -353,7 +354,7 @@ footer nav ul {
 	left: 58%;
 	cursor: pointer;
 	top: 20%;
-	
+
 }
 
 /* Gestion de la modal */
@@ -366,8 +367,8 @@ footer nav ul {
 	height: clamp(150px, 688px, 750px);
 	padding: 0;
 	/* padding-bottom: 30px; */
-	
-	
+
+
 }
 
 .modal-container {
@@ -398,7 +399,7 @@ footer nav ul {
 	top: 5%;
 	right: 5%;
 	cursor: pointer;
-} 
+}
 
 
 .gallery-modal {
@@ -414,7 +415,7 @@ footer nav ul {
 	width: 77px;
 	height: 103px;
 	margin: 10px 7px 10px 0;
-	
+
 }
 
 .gallery-modal img {
@@ -457,20 +458,6 @@ footer nav ul {
 	text-align: center;
 }
 
-.btn-form-incomplete {
-	color: #FFF;
-	width: 70%;
-	margin: auto;
-	background: #1D6154;
-	border: none;
-	border-radius: 60px;
-	font-family: 'Syne';
-	font-weight: 700;
-	font-size: 16px;
-	padding-inline: 20%;
-	cursor: pointer;
-	opacity: 0.1
-}
 
 .btn-add-pictures {
 		color: #FFF;
@@ -520,7 +507,7 @@ footer nav ul {
 	flex-direction: column;
 	max-width: 420px;
 	box-sizing: border-box;
-		
+
 }
 
 
@@ -564,7 +551,7 @@ footer nav ul {
 	position: absolute;
 	width: 129px;
 	height: 169px;
-	
+
 }
 
 input[type=file] {

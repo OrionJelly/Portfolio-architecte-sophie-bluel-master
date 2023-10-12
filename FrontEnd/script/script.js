@@ -46,10 +46,10 @@ const submitPictureBtn = document.querySelector(
 const imagePreview = document.createElement("img");
 const clearBG = document.querySelector(".add-pictures__placeholder");
 const userInfo = document.querySelector(".form-add-pictures-error");
-const regexNoBlank = /^\s*\S+.*/;
 
-/**** Déclaration des viariales pour la version visiteur ****/
-const formContact = document.querySelector("#form-contact");
+/**** Déclaration des variables version visiteur ****/
+
+const navFiltersEl = document.querySelector(".navfilters");
 
 /*** Récupération des données depuis le backend => Works & Category ****/
 
@@ -60,15 +60,13 @@ const responseGetCategory = await fetch("http://localhost:5678/api/categories");
 works = await responseGetWork.json();
 category = await responseGetCategory.json();
 
-/**** Récupération de l'Id et du token bearer depuis le localstorage ****/
+/**** Récupération  token bearer depuis le localstorage ****/
 
 let token = localStorage.getItem("token");
-let userId = localStorage.getItem("userId");
 
 /*** Vérification du type d'utilisateur ****/
 
-if (token === null || userId == false) {
-  console.log("Il n'y a pas de token");
+if (token === null) {
 } else {
   menuAdmin();
 }
@@ -80,8 +78,6 @@ if (token === null || userId == false) {
 /**** Fonction qui ajoute les boutons des catégories à la section galerie ****/
 
 function addButtonFilters() {
-  const navFiltersEl = document.querySelector(".navfilters");
-
   const elementButtonAll = document.createElement("button");
   elementButtonAll.textContent = "Tous";
   elementButtonAll.classList.add("btn-filters", "btn-filters__active");
@@ -144,12 +140,6 @@ function addFiltersToButtonFilters() {
   );
 }
 
-/**** EventListener pour prévenir le comportement par defaut du bouton submit formulaire contact ****/
-
-formContact.addEventListener("submit", (e) => {
-  e.preventDefault();
-});
-
 /*** initialisation des fonctions ****/
 addButtonFilters();
 generateWork(works);
@@ -161,6 +151,7 @@ generateWork(works);
 /**** Fonction qui permet l'accès au mode édition ****/
 
 function menuAdmin() {
+  navFiltersEl.style.display = "none";
   // Gestion du bouton login
   loginEl.style.display = "none";
   logoutEl.style.display = "flex";
@@ -263,7 +254,6 @@ function generateWorkAdmin(array) {
 
 dialogEl.addEventListener("click", function deleteWork(e) {
   if (e.target.classList.contains("fa-trash-can")) {
-    console.log(e.target);
     const id = e.target.getAttribute("data-id");
     if (window.confirm("Souhaitez-vous supprimer ce projet ?")) {
       submitDeleteWork(id, e);
@@ -288,10 +278,9 @@ async function submitDeleteWork(id) {
       const picture = document.querySelector(`.picture[data-id="${id}"]`);
       pictureAdmin.remove();
       picture.remove();
-      alert("Projet supprimmé avec succès !!");
+      alert("Projet supprimé avec succès !!");
     }
   } catch (error) {
-    alert("Un problème est survenu, veuillez réssayer.");
     console.log(error);
   }
 }
@@ -315,19 +304,7 @@ inputFile.addEventListener("change", () => {
     imagePreview.src = reader.result;
   });
   reader.readAsDataURL(inputFile.files[0]);
-  console.log("Dans le reader " + file);
   fileObject = inputFile.files[0];
-});
-
-// Lecture des actions de l'utilisateur
-
-formAddPicture.addEventListener("change", () => {
-  if (validateForm()) {
-    submitPictureBtn.classList.remove("btn-form-incomplete");
-    userInfo.innerText = "";
-  } else {
-    submitPictureBtn.classList.add("btn-form-incomplete");
-  }
 });
 
 // Envoi du formulaire d'ajout de photo
@@ -337,7 +314,6 @@ formAddPicture.addEventListener("submit", function (e) {
   if (validateForm()) {
     submitNewPicture();
     alert("Nouveau projet ajouté avec succès !!");
-    submitPictureBtn.classList.add("btn-form-incomplete");
     fileObject = "";
   }
 });
@@ -346,7 +322,6 @@ formAddPicture.addEventListener("submit", function (e) {
 
 async function submitNewPicture() {
   const formData = new FormData(formAddPicture);
-  console.log(formData);
   try {
     const response = await fetch("http://localhost:5678/api/works", {
       method: "POST",
@@ -392,10 +367,6 @@ function validateForm() {
     return false;
   } else if (size > limit) {
     const error = `La taille de l'image ${size} MB, est trop volumineuse`;
-    userInfo.innerText = error;
-    return false;
-  } else if (!inputTitle.value.match(regexNoBlank)) {
-    const error = "Veuillez entrer un titre valide";
     userInfo.innerText = error;
     return false;
   } else if (inputCategory.value === "empty") {
